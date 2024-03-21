@@ -15,9 +15,9 @@
       </div>
     </nav>
 
-    @if (session()->has('success'))
+    @if (session()->has('Edit'))
     <div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 70%; margin:6px 16%;">
-      {{ session()->get('success') }}
+      {{ session()->get('Edit') }}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
@@ -26,34 +26,35 @@
       <div class="row justify-content-center">
         <div class="col-sm-8">
           <div class="card p-4">
-            <h1 class="text">Add New Data</h1>
-            <form action="store" method="POST" enctype="multipart/form-data">
+            <h2 class="text">Update Data #{{$product->name}}</h2>
+            <form action="{{url('EditPruduct', $product->id)}}" method="POST" enctype="multipart/form-data">
                   @csrf
+                  @method('put')
                   <div class="form-group">
                     <label >Name</label>
-                    <input type="text"  name="name" placeholder="Enter Name" class="form-control " value="{{old('name')}}"  >
+                    <input type="text"  name="name" placeholder="Enter Name" class="form-control" value="{{old('name', $product->name)}}"  >
                     @if ($errors->has('name'))
                     <span class="text-danger">{{$errors->first('name')}}</span>
                       
                     @endif
                   </div>
                   <div class="form-group">
-                    <label >Description</label>
-                    <textarea type="text"  name="description" placeholder="Enter Description" class="form-control" rows="5" value="{{old('description')}}" ></textarea>
+                    <label class="mt-4" >Description</label>
+                    <textarea   name="description" placeholder="Enter Description" class="form-control" rows="5" >{{old('description', $product->description)}}</textarea>
                     @if ($errors->has('description'))
                     <span class="text-danger">{{$errors->first('description')}}</span>        
                     @endif
                   </div>
                   <div class="form-group ">
                     <label >Image</label>
-                    <input type="file" name="image"  class="form-control" value="{{old('image')}}" >
+                    <input type="file" name="image"  class="form-control" value="{{old('image')}}">
                     @if ($errors->has('image'))
-                    <span class="text-danger">{{$errors->first('image')}}</span>          
+                    <span class="text-danger">{{$errors->first('image')}}</span>        
                     @endif
+                 
                   </div>
-                  <button type="submit" class="btn btn-dark mt-4">Submit</button>
+                  <button type="submit" class="btn btn-dark mt-4">Update Data</button>
             </form>
-
           </div>
         </div>
       </div>
@@ -68,7 +69,7 @@
       body{
         background: linear-gradient(to top, rgb(63, 61, 61), white);
         width: 100%;
-        height: 100vh;
+        height: 110vh;
         font-family: "Quando", serif;
  
       }
@@ -85,7 +86,7 @@
         font-size: 16px;
         font-weight: 500;
         margin-left: 0.4%;
-        margin-top: 2.3%;
+        /* margin-top: 2.3%; */
       }
       .form-group input{
         background: rgb(232, 232, 232);

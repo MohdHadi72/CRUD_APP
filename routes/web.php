@@ -21,3 +21,8 @@ Route::get('/create', [productController::class, 'createdata']);
 
 Route::post('/store', [productController::class, 'storedata']);
 
+Route::get('/delete/{id}', [productController::class, 'deleteproduct']);
+
+Route::get('/Edit/{id}', [productController::class, 'EditProduct']);
+Route::put('/EditPruduct/{id}', [productController::class, 'UpdateProduct']);
+
